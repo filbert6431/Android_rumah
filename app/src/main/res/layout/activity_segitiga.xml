@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Segitiga">
+
+    <TextView
+        android:id="@+id/Segitiga"
+        android:layout_width="103dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="52dp"
+        android:text="Segitiga"
+        android:textSize="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/Hasil_Segitiga"
+        android:layout_width="347dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="228dp"
+        android:paddingLeft="50px"
+        android:paddingTop="30px"
+        android:paddingRight="50px"
+        android:paddingBottom="50px"
+        android:text="Hasil_Segitiga"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Alas_Segitiga"
+        android:layout_width="141dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="136dp"
+        android:ems="10"
+        android:hint="Alas"
+        android:inputType="text"
+        android:paddingLeft="50dp"
+        android:paddingTop="50px"
+        android:paddingRight="50px"
+        android:paddingBottom="50px"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/Tinggi_Segitiga"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Tinggi_Segitiga"
+        android:layout_width="145dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="140dp"
+        android:ems="10"
+        android:hint="Tinggi"
+        android:inputType="text"
+        android:paddingLeft="30dp"
+        android:paddingTop="50px"
+        android:paddingRight="50px"
+        android:paddingBottom="50px"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Segitiga"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnluas_Segitiga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="56dp"
+        android:text="luas segitiga"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Segitiga" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

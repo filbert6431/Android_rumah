@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".kubus">
+
+    <TextView
+        android:id="@+id/Kubus"
+        android:layout_width="279dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="52dp"
+        android:paddingLeft="90dp"
+        android:paddingTop="50px"
+        android:text="Kubus"
+        android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/sisi_sisi"
+        android:layout_width="134dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="Sisi"
+        android:inputType="text"
+        android:paddingLeft="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Kubus" />
+
+    <Button
+        android:id="@+id/btn_luas_permukaan_Kubus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="60dp"
+        android:text="Luas Permukaan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Hasil_Kubus" />
+
+    <Button
+        android:id="@+id/btn_Volume_Kubus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="68dp"
+        android:text="Volume"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Hasil_Kubus" />
+
+    <TextView
+        android:id="@+id/Hasil_Kubus"
+        android:layout_width="368dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="152dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Kubus" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
