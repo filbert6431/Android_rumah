@@ -9,17 +9,26 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.filbert_chrome.databinding.ActivityKubusBinding
 
 class kubus : AppCompatActivity() {
+    private lateinit var binding: ActivityKubusBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_kubus)
+        binding = ActivityKubusBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val inputsisi = findViewById<EditText>(R.id.sisi_sisi)
         val btn_luas_permukaan_kubus = findViewById<Button>(R.id.btn_luas_permukaan_Kubus)
         val btn_volume_kubus= findViewById<Button>(R.id.btn_Volume_Kubus)
         val text_hasil_kubus = findViewById<TextView>(R.id.Hasil_Kubus)
+
+        val judul = intent.getStringExtra("judul_halaman")
+        val description = intent.getStringExtra("description")
+
+        binding.judulHalaman.text = judul
+        binding.description.text = description
 
         btn_luas_permukaan_kubus.setOnClickListener {
 

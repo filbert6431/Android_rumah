@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,18 +18,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filbert_Chrome">
         <activity
-            android:name=".kubus"
+            android:name=".Halaman_admin"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:exported="true">
+            >
             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
+            android:name=".Pertemuan_4.Halaman_utama"
+            android:exported="false"/>
+        <activity
+            android:name=".Pertemuan_3.data.testingFilbert"
+            android:exported="false" />
+        <activity
+            android:name=".Pertemuan_3.data.Selamat_Login"
+            android:exported="false" />
+        <activity
+            android:name=".Pertemuan_3.data.Halaman_login"
+            android:exported="false" />
+        <activity
+            android:name=".Pertemuan_3.data.Halaman_Welcome"
+            android:exported="false" />
+        <activity
+            android:name=".hitung"
+            android:exported="false" />
+        <activity
+            android:name=".kubus"
+            android:exported="false" />
+        <activity
             android:name=".Segitiga"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="false" />

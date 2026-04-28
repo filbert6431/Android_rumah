@@ -16,6 +16,8 @@ class Segitiga : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_segitiga)
 
+
+
         val inputalas = findViewById<EditText>(R.id.Alas_Segitiga)
         val inputtinggi = findViewById<EditText>(R.id.Tinggi_Segitiga)
         val btnLuas = findViewById<Button>(R.id.btnluas_Segitiga)
@@ -30,8 +32,6 @@ class Segitiga : AppCompatActivity() {
             texthasil.visibility = View.VISIBLE
             texthasil.text = "Luas segitiga adalah : " + hasil.toString()
         }
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
