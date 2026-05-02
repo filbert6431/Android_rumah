@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.filbert_chrome.R
+import com.example.filbert_chrome.base_activity
 import com.example.filbert_chrome.databinding.ActivityHalamanLoginBinding
 
 class Halaman_login : AppCompatActivity() {
@@ -30,14 +31,18 @@ class Halaman_login : AppCompatActivity() {
         binding.tombolLogin.setOnClickListener {
             val editor = sharedPref.edit()
             editor.putBoolean("isLogin", true)
+
+            // untuk mengirimkan data ke activity ke fragment home
             editor.putString("username",inputusername)
             editor.apply()
 
+        //    intent.putExtra("inputusername", inputusername)
 
-            val intent = Intent(this, Selamat_Login::class.java)
 
-            // untuk mengirimkan data ke activity selamat_login
-            intent.putExtra("inputusername", binding.Username.text.toString())
+            val intent = Intent(this, base_activity::class.java)
+
+
+
             //
             startActivity(intent)
 

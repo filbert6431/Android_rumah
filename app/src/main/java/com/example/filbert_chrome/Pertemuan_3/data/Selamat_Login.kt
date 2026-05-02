@@ -21,39 +21,43 @@ class Selamat_Login : AppCompatActivity() {
         val binding = ActivitySelamatLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // enggak dipakai lagi karena sudah ada fragment
+
+
+
         // menerima data yang dikirim melewati variabel intent ( i kecil ) dari activity sebelumnya
-        val nama = intent.getStringExtra("inputusername")
-        binding.textView2.text= "Selamat Datang $nama"
-
-        binding.btnwebAdmin.setOnClickListener {
-            val intent = Intent(this, Halaman_admin::class.java)
-            startActivity(intent)
-        }
-
-        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
-        binding.btnLogout.setOnClickListener {
-
-            MaterialAlertDialogBuilder (this)
-                .setTitle("Konfirmasi")
-                .setMessage("Apakah Anda yakin ingin melanjutkan?")
-                .setPositiveButton("Ya") { dialog, _ ->
-                   dialog.dismiss()
-                    val editor = sharedPref.edit()
-                   editor.putBoolean("isLogin", false)
-                   editor.apply()
-
-                    val intent = Intent (this, Halaman_login::class.java)
-                    startActivity(intent)
-            }
-                .setNegativeButton("tidak" ) { dialog, _ ->
-                    dialog.dismiss()
-
-                    Snackbar.make(binding.root, "Logout dibatalkan", Snackbar.LENGTH_SHORT)
-                        .show()
-                }
-                .show()
-
-        }
+//        val nama = intent.getStringExtra("inputusername")
+//        binding.textView2.text= "Selamat Datang $nama"
+//
+//        binding.btnwebAdmin.setOnClickListener {
+//            val intent = Intent(this, Halaman_admin::class.java)
+//            startActivity(intent)
+//        }
+//
+//        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
+//        binding.btnLogout.setOnClickListener {
+//
+//            MaterialAlertDialogBuilder (this)
+//                .setTitle("Konfirmasi")
+//                .setMessage("Apakah Anda yakin ingin melanjutkan?")
+//                .setPositiveButton("Ya") { dialog, _ ->
+//                   dialog.dismiss()
+//                    val editor = sharedPref.edit()
+//                   editor.putBoolean("isLogin", false)
+//                   editor.apply()
+//
+//                    val intent = Intent (this, Halaman_login::class.java)
+//                    startActivity(intent)
+//            }
+//                .setNegativeButton("tidak" ) { dialog, _ ->
+//                    dialog.dismiss()
+//
+//                    Snackbar.make(binding.root, "Logout dibatalkan", Snackbar.LENGTH_SHORT)
+//                        .show()
+//                }
+//                .show()
+//
+//        }
 
 
 
