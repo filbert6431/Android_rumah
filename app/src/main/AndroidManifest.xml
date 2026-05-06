@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filbert_Chrome">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".base_activity"
             android:exported="false" />
-
         <activity
             android:name=".Halaman_admin"
             android:exported="false" />

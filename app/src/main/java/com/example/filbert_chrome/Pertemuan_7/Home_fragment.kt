@@ -41,8 +41,13 @@ class Home_fragment : Fragment() {
         }
 
         val sharedPref = requireActivity().getSharedPreferences("user_pref", AppCompatActivity.MODE_PRIVATE)
-        val nama = sharedPref.getString("Username", "User")
-        binding.textView2.text = "Selamat Datang $nama"
+        
+        // Mengambil username yang disimpan saat login (key: "username")
+        // Jika tersedia "registered_name" dari proses registrasi, kita tampilkan itu.
+        val username = sharedPref.getString("username", "User")
+        val namaTampil = sharedPref.getString("registered_name", username)
+        
+        binding.textView2.text = "Selamat Datang $namaTampil"
 
         binding.btnLogout.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
