@@ -37,17 +37,11 @@ class Halaman_login : AppCompatActivity() {
             editor.apply()
 
         //    intent.putExtra("inputusername", inputusername)
-
-
             val intent = Intent(this, base_activity::class.java)
-
-
-
             //
             startActivity(intent)
 
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
