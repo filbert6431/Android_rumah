@@ -7,17 +7,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.filbert_chrome.R
+import com.example.filbert_chrome.RegisterActivity
 import com.example.filbert_chrome.base_activity
 import com.example.filbert_chrome.databinding.ActivityHalamanLoginBinding
+import com.google.android.material.snackbar.Snackbar
 
 class Halaman_login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        var binding = ActivityHalamanLoginBinding.inflate(layoutInflater)
+        val binding = ActivityHalamanLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val inputusername = binding.Username.text.toString()
 
         val judul = intent.getStringExtra("judul_halaman")
         val description = intent.getStringExtra("description")
@@ -26,21 +26,45 @@ class Halaman_login : AppCompatActivity() {
         binding.description.text = description
 
         val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
-        val isLogin = sharedPref.getBoolean("isLogin", false)
+
+        binding.tombolRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.tombolLogin.setOnClickListener {
-            val editor = sharedPref.edit()
-            editor.putBoolean("isLogin", true)
+            val userStr = binding.Username.text.toString()
+            val passStr = binding.Password.text.toString()
 
-            // untuk mengirimkan data ke activity ke fragment home
-            editor.putString("username",inputusername)
-            editor.apply()
+            val regUser = sharedPref.getString("registered_username", "")
+            val regPass = sharedPref.getString("registered_password", "")
 
-        //    intent.putExtra("inputusername", inputusername)
-            val intent = Intent(this, base_activity::class.java)
-            //
-            startActivity(intent)
+            if (userStr.isEmpty() || passStr.isEmpty()) {
+                Snackbar.make(binding.root, "Username dan Password tidak boleh kosong", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
+            // Rule 1: username == password
+            val isRule1 = (userStr == passStr)
+
+            // Rule 2: match with registered data (pastikan regUser tidak kosong agar tidak bypass jika belum registrasi)
+            val isRule2 = (regUser != "" && userStr == regUser && passStr == regPass)
+
+            if (isRule1 || isRule2) {
+                // Berhasil login
+                val editor = sharedPref.edit()
+                editor.putBoolean("isLogin", true)
+                editor.putString("username", userStr)
+                editor.apply()
+
+                val intent = Intent(this, base_activity::class.java)
+                intent.putExtra("username", userStr)
+                startActivity(intent)
+                finish()
+            } else {
+                // Gagal login
+                Snackbar.make(binding.root, "Username atau Password salah", Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
