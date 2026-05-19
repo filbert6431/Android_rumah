@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.filbert_chrome.Halaman_admin
 import com.example.filbert_chrome.Pertemuan_3.data.Halaman_login
 import com.example.filbert_chrome.R
+import com.example.filbert_chrome.base_activity
 import com.example.filbert_chrome.databinding.FragmentHomeBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -33,6 +34,11 @@ class Home_fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentHomeBinding.bind(view)
+
+        binding.btnNotifikasi.setOnClickListener {
+            // Menggunakan replaceFragment dari base_activity karena LogActivityFragment adalah Fragment
+            (activity as? base_activity)?.replaceFragment(LogActivityFragment())
+        }
 
 
         binding.btnwebAdmin.setOnClickListener {

@@ -8,6 +8,8 @@
     android:background="@color/dark_background"
     tools:context=".Pertemuan_7.About_fragment">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,63 +98,50 @@
                     android:textAllCaps="true"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="12dp"
+                    android:columnCount="2"
+                    android:alignmentMode="alignMargins">
 
                     <TextView
                         android:id="@+id/fitur1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/FeatureItemStyle"
                         android:text="• Fragment"
-                        android:textColor="@color/text_primary"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_columnWeight="1" />
 
                     <TextView
                         android:id="@+id/fitur2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/FeatureItemStyle"
                         android:text="• Toolbar"
-                        android:textColor="@color/text_primary" />
+                        android:layout_columnWeight="1" />
 
                     <TextView
                         android:id="@+id/fitur3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/FeatureItemStyle"
                         android:text="• Navigation Bar"
-                        android:textColor="@color/text_primary" />
-
-                    <TextView
-                        android:id="@+id/fitur4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="• Toolbar"
-                        android:textColor="@color/text_primary" />
+                        android:layout_columnWeight="1" />
 
                     <TextView
                         android:id="@+id/fitur5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/FeatureItemStyle"
                         android:text="• SplashScreen"
-                        android:textColor="@color/text_primary" />
-
+                        android:layout_columnWeight="1" />
 
                     <TextView
                         android:id="@+id/fitur6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="• Shared Preference / Session"
-                        android:textColor="@color/text_primary" />
+                        style="@style/FeatureItemStyle"
+                        android:text="• Session Manager"
+                        android:layout_columnWeight="1" />
+
                     <TextView
                         android:id="@+id/fitur7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="• WebView "
-                        android:textColor="@color/text_primary" />
+                        style="@style/FeatureItemStyle"
+                        android:text="• WebView"
+                        android:layout_columnWeight="1" />
 
-                </LinearLayout>
+                </GridLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

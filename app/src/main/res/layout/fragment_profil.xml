@@ -9,6 +9,15 @@
     android:fontFamily="@font/inter_variablefont_opsz"
     tools:context=".Pertemuan_7.Profil_fragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:alpha="0.8"
+        app:srcCompat="@drawable/wave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardProfile"
         android:layout_width="150dp"

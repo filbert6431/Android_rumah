@@ -1,6 +1,5 @@
 package com.example.filbert_chrome
 
-import android.R.id.home
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,43 +20,44 @@ class base_activity : AppCompatActivity() {
         binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        replaceFragment(Home_fragment())
+        // Cek agar tidak replace fragment saat rotasi layar
+        if (savedInstanceState == null) {
+            replaceFragment(Home_fragment(), false)
+        }
 
-        binding.bottomNavView.setOnItemSelectedListener {
-            when(it.itemId) {
-                    R.id.home -> {
-                        replaceFragment(Home_fragment())
-                        true
-                    }
-
-                R.id.about ->  {
-                    replaceFragment(About_fragment())
-                        true
-
+        binding.bottomNavView.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.home -> {
+                    replaceFragment(Home_fragment(), false)
+                    true
                 }
-            R.id.profil ->{
-                replaceFragment(Profil_fragment())
-                true
-            }
+                R.id.about -> {
+                    replaceFragment(About_fragment(), false)
+                    true
+                }
+                R.id.profil -> {
+                    replaceFragment(Profil_fragment(), false)
+                    true
+                }
                 else -> false
-
+            }
         }
-        }
-
     }
-private fun replaceFragment(Fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-        .replace(binding.fragmentContainer.id, Fragment)
-        .commit()
 
-}
-
-
-
+    fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(binding.fragmentContainer.id, fragment)
+        
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        
+        transaction.commit()
+    }
 }

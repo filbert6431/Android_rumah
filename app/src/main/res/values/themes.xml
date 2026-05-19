@@ -6,4 +6,16 @@
     </style>
 
     <style name="Theme.Filbert_Chrome" parent="Base.Theme.Filbert_Chrome" />
+
+    <style name="FeatureItemStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:background">#0DFFFFFF</item>
+        <!-- Tambahkan gravity fill agar item mengisi ruang kolom secara merata -->
+        <item name="android:layout_gravity">fill</item>
+    </style>
 </resources>
