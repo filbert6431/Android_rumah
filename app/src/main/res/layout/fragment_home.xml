@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_background"
     android:fontFamily="@font/inter_variablefont_opsz"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Pertemuan_7.Home_fragment">
-
 
     <ImageView
         android:id="@+id/imageView9"
@@ -15,8 +15,8 @@
         android:layout_height="180dp"
         android:layout_marginStart="230dp"
         android:layout_marginTop="-100dp"
-        android:backgroundTint="@color/brand_red"
         android:alpha="0.3"
+        android:backgroundTint="@color/brand_red"
         android:src="@drawable/rectangle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +27,8 @@
         android:layout_height="180dp"
         android:layout_marginStart="-100dp"
         android:layout_marginTop="50dp"
-        android:backgroundTint="@color/brand_orange"
         android:alpha="0.2"
+        android:backgroundTint="@color/brand_orange"
         android:src="@drawable/rectangle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,11 +37,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:text="Welcome!"
         android:textColor="@color/text_primary"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,84 +49,95 @@
 
     <Button
         android:id="@+id/btnweb_Admin"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="@color/brand_red"
         android:text="Halaman Admin"
         android:textAllCaps="false"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_notifikasi"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:text="Log Aktivitas Admin"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:backgroundTint="@color/dark_surface"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/ic_notifications"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@color/brand_red"
+        app:layout_constraintEnd_toEndOf="@+id/btnweb_Admin"
+        app:layout_constraintStart_toStartOf="@+id/btnweb_Admin"
+        app:layout_constraintTop_toBottomOf="@+id/btnweb_Admin"
+        app:strokeColor="@color/brand_red"
+        app:strokeWidth="1dp" />
+
     <Button
         android:id="@+id/btn_logout"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/dark_surface"
         android:text="Logout"
         android:textAllCaps="false"
         android:textColor="@color/brand_red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_notifikasi"
+        app:layout_constraintStart_toStartOf="@+id/btn_notifikasi"
         app:layout_constraintTop_toBottomOf="@+id/btn_notifikasi" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="207dp"
-        android:layout_height="183dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="520dp"
-        android:backgroundTint="@color/brand_red"
-        android:alpha="0.1"
-        android:src="@drawable/rectangle"
+    <TextView
+        android:id="@+id/tvLabelBerita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Berita Desa Terbaru"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+
+    <!-- D:/punya yg yg/kodingan/Mobile/Project/Rumah/Filbert_Chrome/app/src/main/res/layout/fragment_home.xml -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RVBerita"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewWave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelBerita"
+        tools:listitem="@layout/item_berita" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="272dp"
-        android:layout_height="204dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="480dp"
-        android:backgroundTint="@color/brand_orange"
-        android:alpha="0.15"
-        android:src="@drawable/rectangle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+        android:id="@+id/imageViewWave"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:alpha="0.8"
+        android:layout_height="120dp"
+        android:alpha="0.6"
         android:rotation="180"
-        app:srcCompat="@drawable/wave"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_notifikasi"
-        android:layout_width="280dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
-        android:text="Log Aktivitas Admin"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/ic_notifications"
-        app:iconGravity="textStart"
-        app:iconPadding="12dp"
-        app:iconTint="@color/brand_red"
-        app:backgroundTint="@color/dark_surface"
-        app:strokeColor="@color/brand_red"
-        app:strokeWidth="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnweb_Admin" />
+        app:srcCompat="@drawable/wave" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

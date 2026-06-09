@@ -1,0 +1,72 @@
+===================================================================
+                  CATATAN ALUR DATA & NETWORK ARCHITECTURE
+===================================================================
+
+1. URUTAN ALUR DATA (DATA FLOW)
+-------------------------------------------------------------------
+Client ──> Service ──> Response ──> Model ──> Adapter ──> RecyclerView
+
+* Client (BeritaApiClient):
+  Objek Singleton yang berfungsi mengonfigurasi library Retrofit,
+  menetapkan BASE_URL, dan menyediakan koneksi jaringan utama.
+
+* Service (BeritaApiService):
+  Interface yang berfungsi mendefinisikan rute, metode HTTP (@GET),
+  dan endpoint spesifik (seperti 'top-headlines' dan 'search').
+
+* Response (BeritaResponse):
+  Data Class yang berfungsi sebagai wadah/pembungkus untuk memetakan
+  seluruh struktur data JSON utuh (termasuk totalArticles) yang
+  dikirim oleh server GNews API.
+
+* Model (BeritaModel):
+  Data Class yang merepresentasikan objek berita tunggal (judul,
+  deskripsi, gambar) yang siap diolah untuk tampilan.
+
+
+2. MENGAPA MENGGUNAKAN RESPONSE? (Perbedaan dengan Project Dosen)
+-------------------------------------------------------------------
+* Project Dosen (Picsum API):
+  Server langsung mengirimkan data dalam bentuk List bersih pada
+  baris pertama [ {"id":1}, {"id":2} ], sehingga TIDAK butuh Response.
+
+* Project GNews Kamu:
+  Server membungkus datanya dalam objek besar { "totalArticles": 100,
+  "articles": [...] }. Oleh karena itu, WAJIB menggunakan BeritaResponse
+  sebagai "peta luar" untuk membongkar bungkusan tersebut sebelum
+  mengambil data artikel di dalamnya.
+
+
+3. BEDAH FUNGSI UTAMA DI FRAGMENT
+-------------------------------------------------------------------
+
+A. setupRecyclerView() [PONDASI AWAL]
+   - Berfungsi menyiapkan RecyclerView saat halaman pertama dibuka.
+   - Adapter diberi List Kosong terlebih dahulu karena aplikasi belum
+     sempat menembak internet.
+   - Menggunakan LinearLayoutManager HORIZONTAL agar kartu berita
+     bisa digeser ke samping (seperti Netflix/Shopee).
+   - Mengawinkan komponen XML (RVBerita) dengan BeritaAdapter.
+
+B. loadBerita() [PROSES AMBIL DATA]
+   - lifecycleScope.launch: Membuat jalur khusus di latar belakang
+     (background thread) agar saat loading internet, aplikasi tidak
+     membeku (lag/freeze).
+   - Blok Try: Mencoba menembak API via Retrofit. Jika data didapatkan
+     dan tidak kosong (!isNullOrEmpty), data dioper ke adapter menggunakan
+     perintah 'beritaAdapter.updateData(response.articles)'.
+   - Blok Catch: Jaring pengaman. Jika internet putus atau server down,
+     error ditangkap di sini sehingga aplikasi tidak crash (force close),
+     melainkan memunculkan pesan Toast yang sopan.
+
+
+4. DI MANA DATA MELEKAT KE DESAIN XML?
+-------------------------------------------------------------------
+Proses ini adalah kerja sama antara Fragment dan Adapter (Analogi Restoran):
+* Home_fragment (Pelayan): Bertugas mengambil bahan makanan dari
+  internet, lalu menyerahkannya ke koki via 'updateData()'.
+* BeritaAdapter (Koki): Bertugas menerima bahan data tersebut, lalu
+  secara fisik "meletakkan/menempelkan" teks judul dan gambar ke
+  dalam file desain 'item_berita.xml' (Piring) melalui fungsi
+  'onBindViewHolder', hingga akhirnya tayang di RecyclerView (Meja Makan).
+===================================================================x

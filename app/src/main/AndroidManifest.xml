@@ -15,10 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filbert_Chrome">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Tutorial.TutorialActivity"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".Pertemuan_7.LogActivity"
+            android:exported="false"
+            android:label="Log Aktivitas" />
+        <activity
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".base_activity"

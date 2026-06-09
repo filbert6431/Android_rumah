@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.filbert_chrome.R
 import com.example.filbert_chrome.RegisterActivity
-import com.example.filbert_chrome.base_activity
+import com.example.filbert_chrome.Tutorial.TutorialActivity
 import com.example.filbert_chrome.databinding.ActivityHalamanLoginBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -44,25 +44,25 @@ class Halaman_login : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Rule 1: username == password
+            // Aturan login sederhana: 
+            // 1. Username harus sama dengan Password (misal: user & user)
+            // 2. ATAU cocok dengan data saat Register
             val isRule1 = (userStr == passStr)
-
-            // Rule 2: match with registered data (pastikan regUser tidak kosong agar tidak bypass jika belum registrasi)
             val isRule2 = (regUser != "" && userStr == regUser && passStr == regPass)
 
             if (isRule1 || isRule2) {
-                // Berhasil login
+                // --- BERHASIL LOGIN ---
                 val editor = sharedPref.edit()
                 editor.putBoolean("isLogin", true)
                 editor.putString("username", userStr)
                 editor.apply()
 
-                val intent = Intent(this, base_activity::class.java)
-                intent.putExtra("username", userStr)
+                // Setiap kali login, langsung ke Tutorial agar pengguna paham cara pakai
+                val intent = Intent(this, TutorialActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                // Gagal login
+                // --- GAGAL LOGIN ---
                 Snackbar.make(binding.root, "Username atau Password salah", Snackbar.LENGTH_SHORT).show()
             }
         }

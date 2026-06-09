@@ -10,4 +10,7 @@
 
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#B0B0B0</color>
+
+    <!-- Warna untuk dot indicator -->
+    <color name="abu_gelap">#424242</color>
 </resources>
