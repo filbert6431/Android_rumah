@@ -15,6 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filbert_Chrome">
         <activity
+            android:name=".Persil.PersilActivity"
+            android:exported="false"
+            android:label="Data Persil" />
+        <activity
+            android:name=".Persil.FormPersilActivity"
+            android:exported="false"
+            android:label="Tambah Persil" />
+        <activity
             android:name=".Tutorial.TutorialActivity"
             android:exported="false" />
         <activity
@@ -33,10 +41,8 @@
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
-            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

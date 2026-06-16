@@ -12,16 +12,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filbert_chrome.Data.AppDatabase
 import com.example.filbert_chrome.Data.entity.LogEntity
-import com.example.filbert_chrome.databinding.FragmentLogSengketaBinding
+import com.example.filbert_chrome.databinding.FragmentLogAdminBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
-class SengketaFragment : Fragment() {
-    private var _binding: FragmentLogSengketaBinding? = null
+class AdminFragment : Fragment() {
+    private var _binding: FragmentLogAdminBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentLogSengketaBinding.inflate(inflater, container, false)
+        _binding = FragmentLogAdminBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,14 +32,15 @@ class SengketaFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvSengketa.layoutManager = LinearLayoutManager(context)
+        binding.rvAdmin.layoutManager = LinearLayoutManager(context)
     }
 
     private fun fetchLogs() {
         lifecycleScope.launch {
             val db = AppDatabase.getInstance(requireContext())
-            val logs = db.LogDao().getLogsByCategory("Sengketa")
-            binding.rvSengketa.adapter = LogRoomAdapter(
+            val logs = db.LogDao().getLogsByCategory("Admin")
+            
+            binding.rvAdmin.adapter = LogRoomAdapter(
                 logs = logs,
                 onDelete = { log -> deleteLog(log) },
                 onEdit = { log -> showEditDialog(log) }
@@ -51,14 +52,14 @@ class SengketaFragment : Fragment() {
         lifecycleScope.launch {
             AppDatabase.getInstance(requireContext()).LogDao().deleteLog(log)
             fetchLogs()
-            Toast.makeText(context, "Log Sengketa dihapus", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Log dihapus", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showEditDialog(log: LogEntity) {
         val context = requireContext()
         val builder = MaterialAlertDialogBuilder(context)
-        builder.setTitle("Edit Log Sengketa")
+        builder.setTitle("Edit Log Admin")
 
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
@@ -66,15 +67,22 @@ class SengketaFragment : Fragment() {
 
         val inputTitle = EditText(context)
         inputTitle.setText(log.title)
+        inputTitle.hint = "Judul Log"
         layout.addView(inputTitle)
 
         val inputDesc = EditText(context)
         inputDesc.setText(log.description)
+        inputDesc.hint = "Deskripsi"
         layout.addView(inputDesc)
 
         builder.setView(layout)
+
         builder.setPositiveButton("Update") { _, _ ->
-            updateLog(log.copy(title = inputTitle.text.toString(), description = inputDesc.text.toString()))
+            val newTitle = inputTitle.text.toString()
+            val newDesc = inputDesc.text.toString()
+            if (newTitle.isNotEmpty() && newDesc.isNotEmpty()) {
+                updateLog(log.copy(title = newTitle, description = newDesc))
+            }
         }
         builder.setNegativeButton("Batal", null)
         builder.show()
@@ -84,6 +92,7 @@ class SengketaFragment : Fragment() {
         lifecycleScope.launch {
             AppDatabase.getInstance(requireContext()).LogDao().updateLog(log)
             fetchLogs()
+            Toast.makeText(context, "Log diperbarui", Toast.LENGTH_SHORT).show()
         }
     }
 

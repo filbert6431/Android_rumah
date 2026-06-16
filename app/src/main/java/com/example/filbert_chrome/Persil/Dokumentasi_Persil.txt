@@ -1,0 +1,60 @@
+📑 DOKUMENTASI SISTEM PERSIL (ROOM DATABASE) - FILBERT CHROME
+
+============================================================
+1. STRUKTUR ROOM DATABASE
+============================================================
+
+A. Entity (PersilEntity.kt)
+   - Deskripsi: Representasi tabel "notes" di dalam database.
+   - Field:
+     * id (Primary Key, AutoGenerate): ID unik tiap data.
+     * nomor_objek: Identitas unik tanah (NOP).
+     * nama_Pemilik: Nama pemilik sah.
+     * luas_tanah: Luas dalam satuan m2.
+     * alamat: Lokasi fisik tanah.
+     * jenis_tanah: Klasifikasi (Sawah, Pekarangan, dll).
+
+B. DAO (PersilDao.kt)
+   - Deskripsi: Interface yang berisi fungsi CRUD (Create, Read, Delete).
+   - Fungsi Utama:
+     * getAll(): Mengambil semua data dari tabel.
+     * insert(): Menambahkan data baru.
+     * delete(): Menghapus data spesifik.
+
+C. AppDatabase (AppDatabase.kt)
+   - Deskripsi: Pengatur utama database menggunakan pola Singleton.
+   - Singleton: Memastikan hanya ada satu instance database yang berjalan agar hemat memori.
+
+============================================================
+2. LOGIKA KERJA (FLOW)
+============================================================
+
+A. Menambah Data (FormPersilActivity)
+   1. User mengisi formulir di UI.
+   2. Saat tombol 'Save' diklik, fungsi saveData() dijalankan.
+   3. Program mengecek (validasi) apakah input penting sudah terisi.
+   4. LifecycleScope (Coroutine) digunakan untuk menjalankan proses simpan di 'Background Thread'.
+   5. Data dibungkus ke dalam objek PersilEntity lalu dikirim ke DAO.
+
+B. Menampilkan Daftar (PersilFragment & PersilAdapter)
+   1. Saat Fragment dibuka, fungsi fetchPersil() memanggil database.
+   2. Data yang didapat (List<PersilEntity>) dimasukkan ke dalam Adapter.
+   3. notifyDataSetChanged() memberitahu UI untuk merender ulang daftar tanah terbaru.
+   4. onResume() dipasang agar daftar otomatis terupdate setiap kali kembali dari Form.
+
+C. Menghapus Data
+   1. User mengklik ikon sampah di list.
+   2. Muncul dialog konfirmasi (MaterialAlertDialog).
+   3. Jika 'Ya', fungsi deleteNote() dipanggil di Fragment, data dihapus dari database, dan list diperbarui.
+
+============================================================
+3. KONSEP PENTING UNTUK DIPELAJARI
+============================================================
+
+- Coroutines (lifecycleScope.launch): Menghindari aplikasi 'hang' saat menulis ke disk.
+- ViewBinding: Menghubungkan XML ke Kotlin dengan aman dan cepat.
+- Singleton Pattern: Cara efisien mengelola resource database di Android.
+
+------------------------------------------------------------
+Dibuat untuk membantu pemahaman alur sistem Persil.
+------------------------------------------------------------

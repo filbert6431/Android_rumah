@@ -9,7 +9,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.filbert_chrome.R
 import com.example.filbert_chrome.databinding.ActivityLogBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -20,7 +19,6 @@ class LogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         
-        // POTENSI ERROR: Jika inflate gagal, biasanya karena file activity_log.xml bermasalah atau ID @+id/main tidak ada.
         binding = ActivityLogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,17 +28,14 @@ class LogActivity : AppCompatActivity() {
             insets
         }
 
-        // Setup Toolbar
-        // POTENSI ERROR: Pastikan ID toolbarLog di XML sudah benar, jika tidak aplikasi akan crash (NullPointerException).
         setSupportActionBar(binding.toolbarLog)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Setup ViewPager2 dengan Adapter
+        // Setup ViewPager2
         val adapter = LogPagerAdapter(this)
         binding.viewPager.adapter = adapter
 
-        // Hubungkan TabLayout dan ViewPager2
-        // POTENSI ERROR: Jika jumlah tab di Mediator berbeda dengan getItemCount di adapter, teks tab akan kosong atau tidak muncul.
+        // Hubungkan TabLayout dengan 4 Kategori
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Sengketa"
@@ -50,10 +45,26 @@ class LogActivity : AppCompatActivity() {
                 else -> ""
             }
         }.attach()
+
+        // FAB Click Listener to add new log
+        binding.fabAddLog.setOnClickListener {
+            val addLogFragment = AddLogFragment()
+            addLogFragment.show(supportFragmentManager, AddLogFragment.TAG)
+        }
+    }
+
+    // Function to refresh the current fragment data
+    fun refreshCurrentFragment() {
+        val fragment = supportFragmentManager.findFragmentByTag("f" + binding.viewPager.currentItem)
+        when (fragment) {
+            is SengketaFragment -> fragment.onResume()
+            is PersilFragment -> fragment.onResume()
+            is SistemFragment -> fragment.onResume()
+            is AdminFragment -> fragment.onResume()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Mengatur aksi tombol back di Toolbar
         if (item.itemId == android.R.id.home) {
             finish()
             return true
@@ -61,19 +72,15 @@ class LogActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    // Adapter Internal untuk manajemen Fragment
     class LogPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
-        
-        // POTENSI ERROR: Jika nilai ini diubah tanpa menyesuaikan createFragment, aplikasi akan memicu IllegalStateException.
-        override fun getItemCount(): Int = 3
+        override fun getItemCount(): Int = 4
 
         override fun createFragment(position: Int): Fragment {
-            // POTENSI ERROR: Unresolved Reference jika Fragment belum dibuat atau belum di-import.
             return when (position) {
                 0 -> SengketaFragment()
                 1 -> PersilFragment()
                 2 -> SistemFragment()
-                // POTENSI ERROR: Muncul jika position tidak ter-handle (misal getItemCount > 3).
+                3 -> AdminFragment()
                 else -> throw IllegalStateException("Posisi tidak valid")
             }
         }

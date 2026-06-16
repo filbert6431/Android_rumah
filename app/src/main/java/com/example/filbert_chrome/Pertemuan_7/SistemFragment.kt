@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.filbert_chrome.R
+import com.example.filbert_chrome.Data.AppDatabase
+import com.example.filbert_chrome.Data.entity.LogEntity
 import com.example.filbert_chrome.databinding.FragmentLogSistemBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 
 class SistemFragment : Fragment() {
     private var _binding: FragmentLogSistemBinding? = null
@@ -22,41 +27,74 @@ class SistemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        // Data khusus Sistem
-        val dataSistem = listOf(
-            LogItem("Admin Login", "Admin Filbert berhasil masuk ke sistem pusat.", "Sistem"),
-            LogItem("Backup Otomatis", "Sistem telah mencadangkan database persil desa.", "Sistem"),
-            LogItem("Pembaruan Sistem", "Aplikasi telah diperbarui ke versi v1.0.1 Stable.", "Sistem")
-        )
+        setupRecyclerView()
+        fetchLogs()
+    }
 
-        binding.rvSistem.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = SistemAdapter(dataSistem)
+    private fun setupRecyclerView() {
+        binding.rvSistem.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun fetchLogs() {
+        lifecycleScope.launch {
+            val db = AppDatabase.getInstance(requireContext())
+            val logs = db.LogDao().getLogsByCategory("Sistem")
+            
+            binding.rvSistem.adapter = LogRoomAdapter(
+                logs = logs,
+                onDelete = { log -> deleteLog(log) },
+                onEdit = { log -> showEditDialog(log) }
+            )
         }
+    }
+
+    private fun deleteLog(log: LogEntity) {
+        lifecycleScope.launch {
+            AppDatabase.getInstance(requireContext()).LogDao().deleteLog(log)
+            fetchLogs()
+            Toast.makeText(context, "Log Sistem dihapus", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showEditDialog(log: LogEntity) {
+        val context = requireContext()
+        val builder = MaterialAlertDialogBuilder(context)
+        builder.setTitle("Edit Log Sistem")
+
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.setPadding(40, 20, 40, 20)
+
+        val inputTitle = EditText(context)
+        inputTitle.setText(log.title)
+        layout.addView(inputTitle)
+
+        val inputDesc = EditText(context)
+        inputDesc.setText(log.description)
+        layout.addView(inputDesc)
+
+        builder.setView(layout)
+        builder.setPositiveButton("Update") { _, _ ->
+            updateLog(log.copy(title = inputTitle.text.toString(), description = inputDesc.text.toString()))
+        }
+        builder.setNegativeButton("Batal", null)
+        builder.show()
+    }
+
+    private fun updateLog(log: LogEntity) {
+        lifecycleScope.launch {
+            AppDatabase.getInstance(requireContext()).LogDao().updateLog(log)
+            fetchLogs()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchLogs()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    // Adapter khusus Sistem
-    class SistemAdapter(private val items: List<LogItem>) : RecyclerView.Adapter<SistemAdapter.ViewHolder>() {
-        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val tvCategory: TextView = view.findViewById(R.id.tvCategory)
-            val tvTitle: TextView = view.findViewById(R.id.tvTitle)
-            val tvDesc: TextView = view.findViewById(R.id.tvDescription)
-        }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_log, parent, false)
-        )
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = items[position]
-            holder.tvTitle.text = item.title
-            holder.tvDesc.text = item.desc
-            holder.tvCategory.text = item.category
-        }
-        override fun getItemCount() = items.size
     }
 }

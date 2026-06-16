@@ -141,18 +141,20 @@
                 android:textColor="@color/text_secondary"
                 android:lineSpacingExtra="4dp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="24dp"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/brand_red"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_delete"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white" />
 
-
-<!--            <TextView-->
-<!--                android:id="@+id/social_media"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:lineSpacingExtra="4dp"-->
-<!--                android:text="Sosial Media"-->
-<!--                android:textColor="@color/brand_orange"-->
-<!--                android:textSize="12sp"-->
-<!--                android:textStyle="bold"  />-->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
