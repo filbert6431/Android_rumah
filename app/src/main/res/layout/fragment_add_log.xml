@@ -52,7 +52,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:hint="Deskripsi Log"
                 android:textColorHint="#E0E0E0"
                 app:hintTextColor="@color/brand_red"
@@ -73,7 +73,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:text="Pilih Kategori Log"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -95,6 +95,26 @@
                     android:overlapAnchor="false" />
             </FrameLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Pengingat (dalam menit)"
+                android:textColorHint="#E0E0E0"
+                app:hintTextColor="@color/brand_red"
+                app:boxStrokeColor="@color/brand_red"
+                app:boxStrokeWidth="2dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etReminderMinutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -104,7 +124,7 @@
         android:layout_height="56dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:text="Simpan Log"
+        android:text="Simpan Log &amp; Set Pengingat"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
